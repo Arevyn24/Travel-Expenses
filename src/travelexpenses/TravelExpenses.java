@@ -225,6 +225,16 @@ public class TravelExpenses extends JFrame{
             //what company pays you 
             double reimb;
 
+            
+                        days = Integer.parseInt(daysOnTripText.getText());
+            air = Double.parseDouble(airfairText.getText());
+            carRental = Double.parseDouble(carRentalText.getText());
+            miles = Double.parseDouble(milesDrivenText.getText());
+            parking = Double.parseDouble(parkingFeesText.getText());
+            taxi = Double.parseDouble(parkingFeesText.getText());
+            conReg = Double.parseDouble(conRegText.getText());
+            lodging = Double.parseDouble(lodgingNightChargesText.getText());
+
             //dec format implement
             DecimalFormat money = new DecimalFormat("$#,###.00");
             
@@ -244,14 +254,6 @@ public class TravelExpenses extends JFrame{
         //get info from text fields
         private void getInfo(){
             //gets each variable as indicated from the text variable calling the getText method
-            days = Integer.parseInt(daysOnTripText.getText());
-            air = Double.parseDouble(airfairText.getText());
-            carRental = Double.parseDouble(carRentalText.getText());
-            miles = Double.parseDouble(milesDrivenText.getText());
-            parking = Double.parseDouble(parkingFeesText.getText());
-            taxi = Double.parseDouble(parkingFeesText.getText());
-            conReg = Double.parseDouble(conRegText.getText());
-            lodging = Double.parseDouble(lodgingNightChargesText.getText());
 
         }
         //figure out expenses
