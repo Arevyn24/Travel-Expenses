@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class TravelExpenses extends JFrame{
     
-
+    
     //info for labels
     private JLabel daysOnTrip; //label 
     private JLabel carRental; //label
@@ -82,6 +82,8 @@ public class TravelExpenses extends JFrame{
         //window content display
         pack();
         setVisible(true);
+        
+        
     }
     /*
     This will build the travel info panel what the user sees next to the text box (label)
@@ -114,7 +116,7 @@ public class TravelExpenses extends JFrame{
         //Grid for 10 r and 2 c
         travelInfo.setLayout(new GridLayout(10,2));
 
-
+        
 
         //labels and text for panel made for their according variable as it functions in this program APPLIES TO BELLOW
         travelInfo.add(daysOnTrip);
@@ -167,7 +169,7 @@ public class TravelExpenses extends JFrame{
         buttonP.add(reset, BorderLayout.WEST); //declaring location of reset button
         buttonP.add(calculate, BorderLayout.CENTER); //declaring location of calculate button
 
-
+        
 
 
 
@@ -191,6 +193,8 @@ public class TravelExpenses extends JFrame{
         double parking;
         double meals;
         double taxi;
+        
+        
 
         /*
         this works with the implements ActionListener above
@@ -223,6 +227,19 @@ public class TravelExpenses extends JFrame{
 
             //dec format implement
             DecimalFormat money = new DecimalFormat("$#,###.00");
+            
+                        //calculates actual expenses
+            actualExpenses = air + carRental + parking + taxi + conReg + lodging;
+            //calculates miles driven
+            milesExpenses = miles * mileAmount;
+            //new actual expenses with miles driven
+            actualExpenses = actualExpenses + milesExpenses;
+            
+            JOptionPane.showMessageDialog(null, actualExpenses);
+
+            
+            
+            
         }
         //get info from text fields
         private void getInfo(){
@@ -238,24 +255,7 @@ public class TravelExpenses extends JFrame{
 
         }
         //figure out expenses
-        private void calcActualExpenses(double actualExpenses, double milesExpenses){
-            //calculates actual expenses
-            actualExpenses = air + carRental + parking + taxi + conReg + lodging;
-            //calculates miles driven
-            milesExpenses = miles * mileAmount;
-            //new actual expenses with miles driven
-            actualExpenses = actualExpenses + milesExpenses;
 
-
-
-            //display total
-            //THIS IS WHAT ISN'T WORKING WHEN YOU CLICK CALCULATE
-          JOptionPane.showMessageDialog(null, "Total expenses: " + actualExpenses + 
-                  "Allowables expenses: "  +
-                   "Amount to be paid back: ");
-            
-
-        }
 
 
     }
@@ -285,6 +285,8 @@ public class TravelExpenses extends JFrame{
     public static void main(String[] args) {
        //creating new travel expense to open gui app
         new TravelExpenses();
+        
+        
     }
 
 }
