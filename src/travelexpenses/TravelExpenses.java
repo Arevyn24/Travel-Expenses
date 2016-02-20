@@ -46,13 +46,6 @@ public class TravelExpenses extends JFrame{
     private JButton calculate; //will be used to calculate informaiton that the user enters when clicked
     private JButton reset; // will be used to reset the fields as needed when clicked
 
-    //constants as specified  
-    private double mealsCost = 37.00; //per day for meals
-    private double parkingFeesAmount = 10.00; // up to 10 per day
-    private double taxiFeesAmount = 20.00; // up to 20 per day
-    private double lodgingChargesAmount = 95.00; // up to 95 a day
-    private double mileAmount = 0.27; //per mile driven
-
     /**
      * Constructor  for TravelExpenses
      * @param args
@@ -90,7 +83,7 @@ public class TravelExpenses extends JFrame{
     */
     private void buildTravelInfoPanel(){
         //field labels made APPLIES TO BELLOW
-        daysOnTrip = new JLabel("Number of days for trip.");
+        daysOnTrip = new JLabel("Number of days for trip:");
         airfair = new JLabel("Airfair Amount: ");
         carRental = new JLabel ("Car Rental Cost Amount: ");
         milesDriven = new JLabel ("Mile Driven: ");
@@ -226,40 +219,82 @@ public class TravelExpenses extends JFrame{
             double reimb;
 
             
-                        days = Integer.parseInt(daysOnTripText.getText());
+            days = Integer.parseInt(daysOnTripText.getText());
             air = Double.parseDouble(airfairText.getText());
             carRental = Double.parseDouble(carRentalText.getText());
             miles = Double.parseDouble(milesDrivenText.getText());
             parking = Double.parseDouble(parkingFeesText.getText());
-            taxi = Double.parseDouble(parkingFeesText.getText());
+            taxi = Double.parseDouble(taxiFeesText.getText());
             conReg = Double.parseDouble(conRegText.getText());
             lodging = Double.parseDouble(lodgingNightChargesText.getText());
 
             //dec format implement
             DecimalFormat money = new DecimalFormat("$#,###.00");
             
-                        //calculates actual expenses
-            actualExpenses = air + carRental + parking + taxi + conReg + lodging;
+            //calculates actual expenses
             //calculates miles driven
-            milesExpenses = miles * mileAmount;
+            milesExpenses = miles * .27;
+            
+            //meals allowed 
+            double meals =days *37;
+           
+            //total allowed 
+            actualExpenses = air + carRental + parking + taxi + conReg + (lodging * days) + milesExpenses + meals;
+            
+            //vars used in if statements. 
+            double allowParking, allowTaxi, allowLodging;
+            
+            
+            //calcuations made for allowed expenses, if less than books allow than no need to give ex. 
+            if (parking > 0){
+                 allowParking  = days * 10.00;
+                
+            }else{
+                allowParking = 0;
+            }
+            if (taxi > 0){
+                allowTaxi = days * 20.00;
+            }else{
+                allowTaxi = 0;
+            }
+            if (lodging > 0){
+                allowLodging = days * 95.00;
+            }else{
+                allowLodging = 0;
+            }
+            
+            //check to make sure these are not over and apply accurate amount
+            if(allowParking > parking){
+                allowParking = parking;
+            }
+            if(allowTaxi > taxi){
+                allowTaxi = taxi;
+            }
+            if(allowLodging > lodging * days){
+                allowLodging = lodging * days;
+            }
+            
+            
+
             //new actual expenses with miles driven
-            actualExpenses = actualExpenses + milesExpenses;
+
+
+
+            //total allowable
+            double allowable = allowParking + allowTaxi + allowLodging +  conReg + carRental+ milesExpenses + meals;
+
+            //pay back!
+            double payBack = actualExpenses - allowable;
             
-            JOptionPane.showMessageDialog(null, actualExpenses);
+            //output to user
+            JOptionPane.showMessageDialog(null, "Total Expenses: " + actualExpenses +"\n"
+                                          + "Allowable Expenses: " + allowable + "\n"
+                                            +"Amount to be Paid Back: " + payBack );
 
             
             
             
         }
-        //get info from text fields
-        private void getInfo(){
-            //gets each variable as indicated from the text variable calling the getText method
-
-        }
-        //figure out expenses
-
-
-
     }
 
     //this handles reset button
